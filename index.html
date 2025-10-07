@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SariEdacos</title>
+</head>
+
+<body>
+    <div id="divParte1">
+        <input type="number" oninput="validaIntervalo()" id="ipt_intervalo_salario" placeholder="intervalo Salario:">
+        <div id="responseInterSal"></div>
+        <input type="number" name="" oninput="validaMes()" id="ipt_mes_corrente" placeholder="Mês corrente:">
+        <div id="responseMesCorrente"></div>
+        <button onclick="registra()">Registrar Parametros</button>
+    </div>
+    <div id="divParte2" style="display: none;">
+
+        <input type="text" placeholder="Nome funcionário: " id="ipt_nmFuncionario" oninput="validaNome()">
+        <div id="responseNome"></div>
+        <input type="number" placeholder="Valor salário: " id="ipt_vlSalario" oninput="validaSalario()">
+        <div id="responseSalario"></div>
+        <input type="number" placeholder="Quantidade de compra Jardim:  " id="ipt_qtdCompra_Jardim" oninput="validaQtd()">
+        <input type="number" placeholder="Quantidade de compra Pesca:  " id="ipt_qtdCompra_Pesca" oninput="validaQtd()">
+        <input type="number" placeholder="Quantidade de compra Praia:  " id="ipt_qtdCompra_Praia" oninput="validaQtd()">
+        <div id="responseQtd"></div>
+        <button onclick="pagaSalario()">Pagar salário</button>
+    </div>
+
+
+
+    <script>
+        var isValidIntervalo;
+        var isValidMes;
+        var isValidNome;
+        var isValidSalario;
+        var isValidQtd;
+        var intervaloSalario;
+        var qtdCompraJardim;
+        var qtdCompraPesca;
+        var qtdCompraPraia;
+        var vlTotal;
+
+        function validaIntervalo() {
+            intervaloSalario = Number(ipt_intervalo_salario.value)
+            if (intervaloSalario < 3000) {
+                responseInterSal.innerHTML = `Salário abaixo do mínimo (R$3.000,00)`
+                isValidIntervalo = false;
+            }
+            else { responseInterSal.innerHTML = ``; isValidIntervalo = true }
+        }
+        function validaMes() {
+            var mesCorrente = Number(ipt_mes_corrente.value)
+            if (mesCorrente > 12 || mesCorrente < 1) {
+                responseMesCorrente.innerHTML = `Mês inválido, deve estar entre 1 e 12`
+                isValidMes = false
+            }
+            else { isValidMes = true; responseMesCorrente.innerHTML = `` }
+        }
+        function registra() {
+            if (isValidIntervalo && isValidMes){
+                divParte1.innerHTML = '';
+                divParte2.style.display = 'block'
+            }
+        }
+        function validaNome(){
+            var nome = ipt_nmFuncionario.value;
+            if (!nome){
+                isValidNome = false
+                responseNome.innerHTML = `Insira um nome válido:`
+
+            } else { isValidNome = true; responseNome.innerHTML = `` }
+        }
+        function validaSalario(){
+        var salario = ipt_vlSalario.value;
+        if (salario < intervaloSalario){
+            isValidSalario = false
+            responseSalario.innerHTML = `Insira um salário maior do que o intervalo`
+        } else { isValidSalario = true; responseSalario.innerHTML = ``}
+    }
+        function validaQtd(){
+            qtdCompraPraia = Number(ipt_qtdCompra_Praia.value);
+            qtdCompraJardim = Number(ipt_qtdCompra_Jardim.value);
+            qtdCompraPesca = Number(ipt_qtdCompra_Pesca.value);
+
+            if (qtdCompraPraia < 0 || qtdCompraJardim < 0 || qtdCompraPesca < 0){
+                responseQtd.innerHTML = `Insira uma quantidade válida: `
+            } else { isValidQtd = true; responseQtd.innerHTML = `` }
+        }
+        
+
+        var precoCadeiraPraia = 100
+        var precoCadeiraJardim = 120
+        var precoCadeiraPesca = 80
+
+        var vlPraia = 0;
+        var vlJardim = 0;
+        var vlPesca = 0;
+        
+        if ((intervaloSalario >= 1 && intervaloSalario <= 5) || (intervaloSalario >= 10 && intervaloSalario <= 12)){
+            vlJardim = qtdCompraPesca * (precoCadeiraJardim * 0.928)
+        }
+        else if((intervaloSalario >= 4 && intervaloSalario <= 10) && qtdCompra > 3){
+            vlPesca = qtdCompraPesca * (precoCadeiraPesca * 0.938)
+        }
+        
+        vlTotal = vlJardim + vlPesca + vlPraia
+
+    
+
+
+    
+    
+    </script>
+</body>
+
+</html>
