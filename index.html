@@ -1,118 +1,245 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SariEdacos</title>
-</head>
-
-<body>
+  </head>
+  <body>
     <div id="divParte1">
-        <input type="number" oninput="validaIntervalo()" id="ipt_intervalo_salario" placeholder="intervalo Salario:">
-        <div id="responseInterSal"></div>
-        <input type="number" name="" oninput="validaMes()" id="ipt_mes_corrente" placeholder="Mês corrente:">
-        <div id="responseMesCorrente"></div>
-        <button onclick="registra()">Registrar Parametros</button>
+      <input
+        type="number"
+        oninput="validaIntervalo()"
+        id="ipt_intervalo_salario"
+        placeholder="intervalo Salario:"
+      />
+      <div id="responseInterSal"></div>
+      <input
+        type="number"
+        name=""
+        oninput="validaMes()"
+        id="ipt_mes_corrente"
+        placeholder="Mês corrente:"
+      />
+      <div id="responseMesCorrente"></div>
+      <button onclick="registra()">Registrar Parametros</button>
     </div>
-    <div id="divParte2" style="display: none;">
-
-        <input type="text" placeholder="Nome funcionário: " id="ipt_nmFuncionario" oninput="validaNome()">
-        <div id="responseNome"></div>
-        <input type="number" placeholder="Valor salário: " id="ipt_vlSalario" oninput="validaSalario()">
-        <div id="responseSalario"></div>
-        <input type="number" placeholder="Quantidade de compra Jardim:  " id="ipt_qtdCompra_Jardim" oninput="validaQtd()">
-        <input type="number" placeholder="Quantidade de compra Pesca:  " id="ipt_qtdCompra_Pesca" oninput="validaQtd()">
-        <input type="number" placeholder="Quantidade de compra Praia:  " id="ipt_qtdCompra_Praia" oninput="validaQtd()">
-        <div id="responseQtd"></div>
-        <button onclick="pagaSalario()">Pagar salário</button>
+    <div id="divParte2" style="display: none">
+      <input
+        type="text"
+        placeholder="Nome funcionário: "
+        id="ipt_nmFuncionario"
+        oninput="validaNome()"
+      />
+      <div id="responseNome"></div>
+      <input
+        type="number"
+        placeholder="Valor salário: "
+        id="ipt_vlSalario"
+        oninput="validaSalario()"
+      />
+      <div id="responseSalario"></div>
+      <input
+        type="number"
+        placeholder="Quantidade de compra Jardim:  "
+        id="ipt_qtdCompra_Jardim"
+        oninput="validaQtd()"
+      />
+      <input
+        type="number"
+        placeholder="Quantidade de compra Pesca:  "
+        id="ipt_qtdCompra_Pesca"
+        oninput="validaQtd()"
+      />
+      <input
+        type="number"
+        placeholder="Quantidade de compra Praia:  "
+        id="ipt_qtdCompra_Praia"
+        oninput="validaQtd()"
+      />
+      <div id="responseQtd"></div>
+      <button onclick="pagaSalario()">Pagar salário</button>
     </div>
-
-
-
     <script>
-        var isValidIntervalo;
-        var isValidMes;
-        var isValidNome;
-        var isValidSalario;
-        var isValidQtd;
-        var intervaloSalario;
-        var qtdCompraJardim;
-        var qtdCompraPesca;
-        var qtdCompraPraia;
-        var vlTotal;
-
-        function validaIntervalo() {
-            intervaloSalario = Number(ipt_intervalo_salario.value)
-            if (intervaloSalario < 3000) {
-                responseInterSal.innerHTML = `Salário abaixo do mínimo (R$3.000,00)`
-                isValidIntervalo = false;
-            }
-            else { responseInterSal.innerHTML = ``; isValidIntervalo = true }
+      var isValidIntervalo;
+      var isValidMes;
+      var isValidNome;
+      var isValidSalario;
+      var isValidQtd;
+      var intervaloSalario;
+      var qtdCompraJardim;
+      var qtdCompraPesca;
+      var qtdCompraPraia;
+      var vlTotal;
+      function validaIntervalo() {
+        intervaloSalario = Number(ipt_intervalo_salario.value);
+        if (intervaloSalario < 3000) {
+          responseInterSal.innerHTML = `Salário abaixo do mínimo (R$3.000,00)`;
+          isValidIntervalo = false;
+        } else {
+          responseInterSal.innerHTML = ``;
+          isValidIntervalo = true;
         }
-        function validaMes() {
-            var mesCorrente = Number(ipt_mes_corrente.value)
-            if (mesCorrente > 12 || mesCorrente < 1) {
-                responseMesCorrente.innerHTML = `Mês inválido, deve estar entre 1 e 12`
-                isValidMes = false
-            }
-            else { isValidMes = true; responseMesCorrente.innerHTML = `` }
+      }
+      function validaMes() {
+        var mesCorrente = Number(ipt_mes_corrente.value);
+        if (mesCorrente > 12 || mesCorrente < 1) {
+          responseMesCorrente.innerHTML = `Mês inválido, deve estar entre 1 e 12`;
+          isValidMes = false;
+        } else {
+          isValidMes = true;
+          responseMesCorrente.innerHTML = ``;
         }
-        function registra() {
-            if (isValidIntervalo && isValidMes){
-                divParte1.innerHTML = '';
-                divParte2.style.display = 'block'
-            }
+      }
+      function registra() {
+        if (isValidIntervalo && isValidMes) {
+          divParte1.innerHTML = '';
+          divParte2.style.display = 'block';
         }
-        function validaNome(){
-            var nome = ipt_nmFuncionario.value;
-            if (!nome){
-                isValidNome = false
-                responseNome.innerHTML = `Insira um nome válido:`
-
-            } else { isValidNome = true; responseNome.innerHTML = `` }
+      }
+      function validaNome() {
+        var nome = ipt_nmFuncionario.value;
+        if (!nome) {
+          isValidNome = false;
+          responseNome.innerHTML = `Insira um nome válido:`;
+        } else {
+          isValidNome = true;
+          responseNome.innerHTML = ``;
         }
-        function validaSalario(){
+      }
+      function validaSalario() {
         var salario = ipt_vlSalario.value;
-        if (salario < intervaloSalario){
-            isValidSalario = false
-            responseSalario.innerHTML = `Insira um salário maior do que o intervalo`
-        } else { isValidSalario = true; responseSalario.innerHTML = ``}
-    }
-        function validaQtd(){
-            qtdCompraPraia = Number(ipt_qtdCompra_Praia.value);
-            qtdCompraJardim = Number(ipt_qtdCompra_Jardim.value);
-            qtdCompraPesca = Number(ipt_qtdCompra_Pesca.value);
-
-            if (qtdCompraPraia < 0 || qtdCompraJardim < 0 || qtdCompraPesca < 0){
-                responseQtd.innerHTML = `Insira uma quantidade válida: `
-            } else { isValidQtd = true; responseQtd.innerHTML = `` }
+        if (salario < intervaloSalario) {
+          isValidSalario = false;
+          responseSalario.innerHTML = `Insira um salário maior do que o intervalo`;
+        } else {
+          isValidSalario = true;
+          responseSalario.innerHTML = ``;
         }
-        
-
-        var precoCadeiraPraia = 100
-        var precoCadeiraJardim = 120
-        var precoCadeiraPesca = 80
-
-        var vlPraia = 0;
-        var vlJardim = 0;
-        var vlPesca = 0;
-        
-        if ((intervaloSalario >= 1 && intervaloSalario <= 5) || (intervaloSalario >= 10 && intervaloSalario <= 12)){
-            vlJardim = qtdCompraPesca * (precoCadeiraJardim * 0.928)
+      }
+      function validaQtd() {
+        qtdCompraPraia = Number(ipt_qtdCompra_Praia.value);
+        qtdCompraJardim = Number(ipt_qtdCompra_Jardim.value);
+        qtdCompraPesca = Number(ipt_qtdCompra_Pesca.value);
+        if (qtdCompraPraia < 0 || qtdCompraJardim < 0 || qtdCompraPesca < 0) {
+          responseQtd.innerHTML = `Insira uma quantidade válida: `;
+        } else {
+          isValidQtd = true;
+          responseQtd.innerHTML = ``;
         }
-        else if((intervaloSalario >= 4 && intervaloSalario <= 10) && qtdCompra > 3){
-            vlPesca = qtdCompraPesca * (precoCadeiraPesca * 0.938)
+      }
+      var precoCadeiraPraia = 100;
+      var precoCadeiraJardim = 120;
+      var precoCadeiraPesca = 80;
+      var vlPraia = 0;
+      var vlJardim = 0;
+      var vlPesca = 0;
+      if (
+        (intervaloSalario >= 1 && intervaloSalario <= 5) ||
+        (intervaloSalario >= 10 && intervaloSalario <= 12)
+      ) {
+        vlJardim = qtdCompraPesca * (precoCadeiraJardim * 0.928);
+      } else if (intervaloSalario >= 4 && intervaloSalario <= 10 && qtdCompra > 3) {
+        vlPesca = qtdCompraPesca * (precoCadeiraPesca * 0.938);
+      }
+      vlTotal = vlJardim + vlPesca + vlPraia;
+      
+      function pagaSalario() {
+        var nome = ipt_nmFuncionario.value;
+        var salario = Number(ipt_vlSalario.value);
+        qtdCompraPraia = Number(ipt_qtdCompra_Praia.value);
+        qtdCompraJardim = Number(ipt_qtdCompra_Jardim.value);
+        qtdCompraPesca = Number(ipt_qtdCompra_Pesca.value);
+
+        if (!isValidNome || !isValidSalario || !isValidQtd) {
+          alert('Preencha todos os campos corretamente!');
+          return;
         }
-        
-        vlTotal = vlJardim + vlPesca + vlPraia
 
-    
+        vlPraia = qtdCompraPraia * precoCadeiraPraia;
+        vlJardim = qtdCompraJardim * precoCadeiraJardim;
+        vlPesca = qtdCompraPesca * precoCadeiraPesca;
 
+        if (
+          (ipt_mes_corrente.value >= 1 && ipt_mes_corrente.value <= 5) ||
+          (ipt_mes_corrente.value >= 10 && ipt_mes_corrente.value <= 12)
+        ) {
+          vlJardim = vlJardim * 0.928;
+        }
+        if (ipt_mes_corrente.value >= 4 && ipt_mes_corrente.value <= 10 && qtdCompraPesca > 3) {
+          vlPesca = vlPesca * 0.9391;
+        }
 
-    
-    
+        vlTotal = vlPraia + vlJardim + vlPesca;
+
+        if (vlTotal > 400 && qtdCompraPraia == 0 && qtdCompraPesca > 0) {
+          vlTotal = vlTotal * 0.975;
+        }
+        if (vlJardim > vlPraia && vlJardim > vlPesca) {
+          vlTotal = vlTotal * 0.945;
+        }
+        var limite = 0;
+        if (salario >= intervaloSalario && salario <= intervaloSalario * 4) {
+          limite = salario * 0.305;
+        } else {
+          limite = salario * 0.2075;
+        }
+
+        if (vlTotal > limite) {
+          alert('Compra não permitida: ultrapassa o limite de desconto!');
+          return;
+        }
+
+        var salarioLiquido = salario - vlTotal;
+
+        var resto = parseInt(salarioLiquido);
+        var ced200 = 0,
+          ced50 = 0,
+          ced20 = 0,
+          ced5 = 0,
+          ced1 = 0;
+
+        while (resto >= 200) {
+          ced200++;
+          resto -= 200;
+        }
+        while (resto >= 50) {
+          ced50++;
+          resto -= 50;
+        }
+        while (resto >= 20) {
+          ced20++;
+          resto -= 20;
+        }
+        while (resto >= 5) {
+          ced5++;
+          resto -= 5;
+        }
+        while (resto >= 1) {
+          ced1++;
+          resto -= 1;
+        }
+
+        divParte2.innerHTML = `
+      <h3>Extrato do Funcionário</h3>
+      Nome: ${nome}<br>
+      Salário Bruto: R$${salario.toFixed(2)}<br>
+      Valor total da compra: R$${vlTotal.toFixed(2)}<br>
+      Salário Líquido: R$${salarioLiquido.toFixed(2)}<br><br>
+
+      <b>Cadeiras compradas:</b><br>
+      Praia: ${qtdCompraPraia} x R$${precoCadeiraPraia}<br>
+      Jardim: ${qtdCompraJardim} x R$${precoCadeiraJardim}<br>
+      Pesca: ${qtdCompraPesca} x R$${precoCadeiraPesca}<br><br>
+
+      <b>Cédulas necessárias:</b><br>
+      R$200: ${ced200}<br>
+      R$50: ${ced50}<br>
+      R$20: ${ced20}<br>
+      R$5: ${ced5}<br>
+      R$1: ${ced1}<br>
+    `;
+      }
     </script>
-</body>
-
+  </body>
 </html>
